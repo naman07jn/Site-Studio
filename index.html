@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Site Studio · Map to 3D digital twin</title>
+<meta name="description" content="Draw any area on the map and get an editable 3D digital twin built from Overture Maps data.">
+<link rel="stylesheet" href="/src/style.css"></head>
+<body>
+<div id="picker">
+  <div id="map"></div>
+  <div id="bar">
+    <div class="brand"><span class="logo">◼</span>Site Studio</div>
+    <div class="search"><input id="q" placeholder="Search a place or type lat, lon"><button id="find" class="ghost">Search</button></div>
+    <div class="actions"><button id="draw">✎ Draw area</button><button id="go" class="primary" disabled>Generate 3D site</button><button id="demo" class="ghost">Try sample</button></div>
+    <div id="results"></div>
+  </div>
+  <div id="pmsg">Search a place (or type coordinates like 28.75, 77.49) or pan to it, press “Draw area”, left-click each corner, then right-click to close the shape (up to ~10 km across; over 3 km is slower).</div>
+</div>
+<div id="studio" class="off">
+<aside>
+  <header><div class="brand"><span class="logo">◼</span>Site Studio</div><button id="back" class="ghost sm">← New area</button></header>
+  <div id="status"></div>
+  <section><h2>Tools</h2>
+    <div class="grid">
+      <button data-tool="orbit" class="tool on"><i>🖱️</i>Select</button>
+      <button data-tool="trace" class="tool"><i>✏️</i>Trace</button>
+      <button data-tool="building" class="tool"><i>🏢</i>Building</button>
+      <button data-tool="cafe" class="tool"><i>☕</i>Cafe</button>
+      <button data-tool="seat" class="tool"><i>⛱️</i>Seating</button>
+      <button data-tool="bench" class="tool"><i>🪑</i>Bench</button>
+      <button data-tool="tree" class="tool"><i>🌳</i>Tree</button>
+    </div>
+    <button id="finish" class="ghost">Finish traced shape</button>
+    <small>Pick a tool, then click the ground. To move an object: select it, then drag it. Right-drag pans, scroll zooms.</small>
+  </section>
+  <section><h2>Selected object</h2>
+    <div id="sel">Nothing selected</div><div id="src"></div>
+    <label>Height (m) <input id="hgt" type="number" min="0.3" step="0.5"></label>
+    <label>Length (m) <input id="len" type="number" min="0.5" step="0.5"></label>
+    <label>Width (m) <input id="wid" type="number" min="0.5" step="0.5"></label>
+    <label>Colour <span class="pair"><input id="col" type="color"><input id="hex" size="7"></span></label>
+    <label>Rotate step (°) <input id="step" type="number" value="15"></label>
+    <div class="row">
+      <button id="rl">↺ Left (Q)</button><button id="rr">↻ Right (E)</button>
+      <button id="zoom">Zoom to</button><button id="del" class="danger">Delete</button>
+    </div>
+  </section>
+  <section><h2>View &amp; export</h2>
+    <label>Show names <input id="names" type="checkbox" checked></label>
+    <button id="cmp">Toggle before / after</button>
+    <button id="glb" class="primary">Export GLB</button>
+  </section>
+  <section><h2>Checks</h2>
+    <label>Clearance (m) <input id="clr" type="number" value="1.5" step="0.5"></label>
+    <div id="report"></div>
+  </section>
+</aside>
+<canvas id="c"></canvas>
+<footer tabindex="0">©<span id="atxt"> Data © <a href="https://docs.overturemaps.org/attribution/" target="_blank">Overture Maps Foundation</a>: buildings from Google, Microsoft, Esri Community Maps and OpenStreetMap contributors; roads from OpenStreetMap contributors and TomTom. Imagery © Esri.</span></footer>
+</div>
+<script type="module" src="/src/main.js"></script>
+</body></html>
